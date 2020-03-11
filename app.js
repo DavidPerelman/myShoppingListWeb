@@ -3,6 +3,10 @@ const app = express();
 const morgan = require('morgan');
 
 app.use(morgan("dev"));
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: false
+}));
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -16,6 +20,12 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
     res.status(200).send({ message: 'Hello World' });
+});
+
+app.post('/articles', (req, res) => {
+    res.status(200).send({ 
+        body: req.body
+     });
 });
 
 app.use((req, res, next) => {
