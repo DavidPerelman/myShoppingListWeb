@@ -1,5 +1,6 @@
 import React, { Component} from "react";
 import Articles from './Articles';
+import PostArticle from './PostArticle';
 
 class App extends Component{
 
@@ -7,6 +8,7 @@ class App extends Component{
     return(
         <div className="App">
         <Articles />
+        <PostArticle />
       </div>
     );
   }
