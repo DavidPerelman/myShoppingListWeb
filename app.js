@@ -1,6 +1,20 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/myShoppingListWeb-api', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+})
+.then(() => console.log('database is connected...'))
+.catch(err => console.log(err));
+
+mongoose.connection.on('connected', () => {
+    console.log('MongoDB Connected!');
+    
+})
 
 const articlesRoutes = require('./routes/articles');
 const categoriesRoutes = require('./routes/categories');

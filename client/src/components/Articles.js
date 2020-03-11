@@ -1,34 +1,43 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import axios from 'axios'
 
-export default class Articles extends Component {
-    state = {
-        data: null
-      };
-    
-      componentDidMount() {
-        this.callBackendAPI()
-          .then(res => this.setState({ data: res.message }))
-          .catch(err => console.log(err));
-      }
-        // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-      callBackendAPI = async () => {
-        const response = await fetch('http://localhost:5000/articles');
-        const body = await response.json();
-    
-        if (response.status !== 200) {
-          throw Error(body.message) 
-        }
-        return body;
-      };
+class Articles extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      articles: []
+    }
+  }
+
+  componentWillMount() {
+    axios.get('http://localhost:5000/articles')
+    .then(response => {
+      console.log(response)
+      this.setState({ articles: response.data.articles })
+    })
+    .catch(error => {
+      console.log(error)
+      this.setState({errorMsg: 'Error retrieving data'})
+    })
+  }
 
     render() {
+      const { articles } = this.state
         return (
             <div>
-                <header className="App-header">
-          <h1 className="App-title">Welcome to Articles</h1>
-        </header>
-        <p className="App-intro">{this.state.data}</p>
+              {
+                articles.map(article => 
+                <div key={article._id}>
+                  <h1>{article.title}</h1>
+                  <h2>{article.description}</h2>
+                  <h3>{article.content}</h3>
+                </div>
+                )
+              }
             </div>
         )
     }
 }
+
+export default Articles;
