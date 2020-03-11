@@ -1,7 +1,6 @@
-import React, { Component} from "react";
-import "./App.css";
+import React, { Component } from 'react'
 
-class App extends Component{
+export default class Articles extends Component {
     state = {
         data: null
       };
@@ -13,7 +12,7 @@ class App extends Component{
       }
         // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
       callBackendAPI = async () => {
-        const response = await fetch('http://localhost:5000/');
+        const response = await fetch('http://localhost:5000/articles');
         const body = await response.json();
     
         if (response.status !== 200) {
@@ -22,16 +21,14 @@ class App extends Component{
         return body;
       };
 
-  render(){
-    return(
-        <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
+    render() {
+        return (
+            <div>
+                <header className="App-header">
+          <h1 className="App-title">Welcome to Articles</h1>
         </header>
         <p className="App-intro">{this.state.data}</p>
-      </div>
-    );
-  }
+            </div>
+        )
+    }
 }
-
-export default App;
