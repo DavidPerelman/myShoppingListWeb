@@ -14,14 +14,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/express_backend', (req, res) => {
-    res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-  });
-
 app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Hello World'
-    })
+    res.status(200).send({ message: 'Hello World' });
 });
 
 app.use((req, res, next) => {
