@@ -26,6 +26,8 @@ class PostArticle extends Component {
         .catch(error => {
             console.log(error);
         })
+
+        return <PostArticle />
     }
 
     render() {
